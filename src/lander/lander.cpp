@@ -50,7 +50,7 @@ void Lander::applyThrust(double thrust) {
 * Detects landing or crashing conditions    
 */    
 void Lander::update(double dt) {
-    if (landedd || crashed) {
+    if (landed|| crashed) {
         return;
     }
 
