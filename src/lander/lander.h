@@ -8,6 +8,8 @@ defines and tracks altitude, velocity, and fuel
 
 class Lander {
     public:
+
+    
     /** Constructor for a new Lander Object
     * \param position: starting height in meters above surface.
     * \param fuel: intial fuel supply available for descent.

@@ -1,4 +1,4 @@
-#include "lander/lander.h"
+#include "lander.h"
 #include <cmath>
 #include <iostream>
 
@@ -8,7 +8,7 @@
  * Lander - setup
  ********************************************/
 // Constructor: initializes lander state with starting altitude and fuel.
-Lander::Lander(double altitude, double fuel) {
+Lander::Lander(double position, double fuel) {
     m_position = position;
     m_fuel = fuel;
     m_velocity = 0.0;
@@ -32,8 +32,8 @@ void Lander::applyThrust(double thrust) {
     if (m_fuel <= 0.0) {
         return;
     }
-
-    if (fm_fueluel < fuelUsed) {
+    //burn the fuel available 
+    if (m_fuel < fuelUsed) {
         thrust = m_fuel / fuelBurnRate;
         fuelUsed = m_fuel;
     }
@@ -41,7 +41,7 @@ void Lander::applyThrust(double thrust) {
     //apply upwards acceleration to reduce velocity
     m_velocity -= deceleration;
     //consume fuel
-    m_fuel -= fuelUsed
+    m_fuel -= fuelUsed;
 }
 
 /** update Member Function: updates the velocity of the lander.
@@ -55,16 +55,16 @@ void Lander::update(double dt) {
     }
 
     m_velocity += gravity * dt;
-    m_position -= velocity * dt;
+    m_position -= m_velocity * dt;
 
     //if altitude is 0, then landed
-    if (m_position <= 0 && m_velocity < 5.0) {
+    if (m_position <= 0) {
         m_position = 0.0;
         landed = true;
     
 
         //crash condition
-        if (m_velocity > 5.0 && m_position <= 0) {
+        if (m_velocity > 5.0) {
             crashed = true;
         }
         //reset velocity after contact
